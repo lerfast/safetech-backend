@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  audit: one
+  description: MyText
+  compliance_status: MyString
+
+two:
+  audit: two
+  description: MyText
+  compliance_status: MyString
