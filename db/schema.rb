@@ -64,8 +64,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_222649) do
     t.date "date"
     t.text "description"
     t.string "severity"
+    t.bigint "incident_type_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["incident_type_id"], name: "index_incidents_on_incident_type_id"
+    t.index ["user_id"], name: "index_incidents_on_user_id"
   end
 
   create_table "reports", force: :cascade do |t|
@@ -107,6 +111,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_222649) do
 
   add_foreign_key "actions", "incidents"
   add_foreign_key "audit_items", "audits"
+  add_foreign_key "incidents", "incident_types"
+  add_foreign_key "incidents", "users"
   add_foreign_key "reports", "incidents"
   add_foreign_key "users", "departments"
   add_foreign_key "users", "roles"
