@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
-    before_action :set_report, only: [:show, :update, :destroy]
+    before_action :authorize_request
+    
   
     def index
       @reports = Report.all

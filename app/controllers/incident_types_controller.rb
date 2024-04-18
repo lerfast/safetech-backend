@@ -1,6 +1,6 @@
 class IncidentTypesController < ApplicationController
-    before_action :set_incident_type, only: [:show, :update, :destroy]
-  
+    before_action :authorize_request
+    
     def index
       @incident_types = IncidentType.all
       render json: @incident_types

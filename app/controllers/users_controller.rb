@@ -1,27 +1,40 @@
 class UsersController < ApplicationController
     before_action :set_user, only: [:show, :update, :destroy]
-  
+    skip_before_action :authorize_request, only: :login
+
     # GET /users
     def index
       @users = User.all
       render json: @users
     end
-  
+
     # GET /users/1
     def show
       render json: @user
     end
-  
+
+    # POST /users/login
+    def login
+      @user = User.find_by(email: params[:email])
+      if @user && @user.authenticate(params[:password])
+        token = encode_token({ user_id: @user.id })
+        render json: { token: token, user_id: @user.id }, status: :ok
+      else
+        render json: { error: 'Unauthorized' }, status: :unauthorized
+      end
+    end
+
     # POST /users
     def create
       @user = User.new(user_params)
       if @user.save
-        render json: @user, status: :created, location: @user
+        token = encode_token({ user_id: @user.id })  # Optionally return token upon registration
+        render json: { user: @user, token: token }, status: :created, location: @user
       else
         render json: @user.errors, status: :unprocessable_entity
       end
     end
-  
+
     # PATCH/PUT /users/1
     def update
       if @user.update(user_params)
@@ -30,22 +43,26 @@ class UsersController < ApplicationController
         render json: @user.errors, status: :unprocessable_entity
       end
     end
-  
+
     # DELETE /users/1
     def destroy
       @user.destroy
       head :no_content
     end
-  
+
     private
       # Use callbacks to share common setup or constraints between actions
       def set_user
         @user = User.find(params[:id])
       end
-  
+
       # Only allow a list of trusted parameters through
       def user_params
-        params.require(:user).permit(:first_name, :last_name, :email, :phone_number, :department_id, :role_id)
+        params.require(:user).permit(:first_name, :last_name, :email, :phone_number, :department_id, :role_id, :password, :password_confirmation)
       end
-  end
-  
+      
+
+      def encode_token(payload)
+        JWT.encode(payload, Rails.application.secret_key_base)
+      end
+end

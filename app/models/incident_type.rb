@@ -1,2 +1,4 @@
+# app/models/incident_type.rb
 class IncidentType < ApplicationRecord
-end
+    has_many :incidents
+  end

@@ -1,5 +1,5 @@
 class ActionsController < ApplicationController
-    before_action :set_action, only: [:show, :update, :destroy]
+    before_action :authorize_request
   
     def index
       @actions = Action.all

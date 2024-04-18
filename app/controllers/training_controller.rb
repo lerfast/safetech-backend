@@ -1,5 +1,5 @@
 class TrainingsController < ApplicationController
-    before_action :set_training, only: [:show, :update, :destroy]
+    before_action :authorize_request
   
     def index
       @trainings = Training.all

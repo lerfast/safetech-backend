@@ -1,5 +1,5 @@
 class AuditsController < ApplicationController
-    before_action :set_audit, only: [:show, :update, :destroy]
+    before_action :authorize_request
   
     def index
       @audits = Audit.all

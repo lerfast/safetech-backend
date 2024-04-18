@@ -1,5 +1,6 @@
 class IncidentsController < ApplicationController
-    before_action :set_incident, only: [:show, :update, :destroy]
+    before_action :authorize_request
+    
   
     def index
       @incidents = Incident.all
