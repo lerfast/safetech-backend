@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_15_012208) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_27_153413) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_012208) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "training_participations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "training_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["training_id"], name: "index_training_participations_on_training_id"
+    t.index ["user_id"], name: "index_training_participations_on_user_id"
+  end
+
   create_table "trainings", force: :cascade do |t|
     t.date "date"
     t.string "topic"
@@ -94,6 +103,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_012208) do
     t.integer "effectiveness"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "training_type"
   end
 
   create_table "users", force: :cascade do |t|
@@ -118,6 +128,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_012208) do
   add_foreign_key "incidents", "incident_types"
   add_foreign_key "incidents", "users"
   add_foreign_key "reports", "incidents"
+  add_foreign_key "training_participations", "trainings"
+  add_foreign_key "training_participations", "users"
   add_foreign_key "users", "departments"
   add_foreign_key "users", "roles"
 end
