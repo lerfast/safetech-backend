@@ -1,4 +1,5 @@
 class SucursalsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:create, :update, :destroy]
     before_action :set_sucursal, only: %i[show update destroy]
   
     def index
