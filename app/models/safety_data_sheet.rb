@@ -1,6 +1,5 @@
 class SafetyDataSheet < ApplicationRecord
-    belongs_to :user, foreign_key: "created_by"
-  
-    validates :title, :content, :created_by, presence: true
-  end
-  
+  belongs_to :user
+
+  validates :title, :content, :document_type, :user_id, presence: true
+end

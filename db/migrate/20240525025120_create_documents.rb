@@ -4,7 +4,7 @@ class CreateDocuments < ActiveRecord::Migration[7.1]
       t.string :title
       t.text :content
       t.string :document_type
-      t.integer :created_by
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

@@ -1,5 +1,6 @@
-class Incident < ApplicationRecord
-  belongs_to :user
+class Inspection < ApplicationRecord
+  belongs_to :inspector, class_name: 'User'
+  belongs_to :equipment
 
-  validates :description, :incident_date, :reported_date, :location, :severity, :status, presence: true
+  validates :inspection_date, :location, :inspector_id, :equipment_id, :status, presence: true
 end

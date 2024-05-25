@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_25_142452) do
   create_table "acknowledgments", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.date "date_awarded"
+    t.date "date_received"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -48,7 +48,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_25_142452) do
 
   create_table "capas", force: :cascade do |t|
     t.text "action_description"
-    t.string "responsible_person"
+    t.bigint "responsible_person_id", null: false
     t.date "start_date"
     t.date "end_date"
     t.string "priority"
@@ -57,6 +57,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_25_142452) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["incident_id"], name: "index_capas_on_incident_id"
+    t.index ["responsible_person_id"], name: "index_capas_on_responsible_person_id"
   end
 
   create_table "complete_audits", force: :cascade do |t|
@@ -117,9 +118,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_25_142452) do
     t.string "title"
     t.text "content"
     t.string "document_type"
-    t.integer "created_by"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_documents_on_user_id"
   end
 
   create_table "enrollments", force: :cascade do |t|
@@ -150,14 +152,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_25_142452) do
     t.index ["user_id"], name: "index_forms_on_user_id"
   end
 
-  create_table "helps", force: :cascade do |t|
+  create_table "help_resources", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.string "category"
+    t.string "help_type"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_helps_on_user_id"
+    t.index ["user_id"], name: "index_help_resources_on_user_id"
   end
 
   create_table "incident_reports", force: :cascade do |t|
@@ -221,7 +223,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_25_142452) do
   end
 
   create_table "qr_scans", force: :cascade do |t|
-    t.text "scanned_data"
+    t.string "data"
+    t.datetime "scanned_at"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -232,9 +235,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_25_142452) do
     t.string "title"
     t.text "content"
     t.string "report_type"
-    t.integer "generated_by"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
   create_table "role_assignments", force: :cascade do |t|
@@ -256,16 +260,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_25_142452) do
   create_table "safety_data_sheets", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.integer "created_by"
+    t.string "document_type"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_safety_data_sheets_on_user_id"
   end
 
   create_table "safety_meetings", force: :cascade do |t|
     t.string "title"
-    t.text "agenda"
     t.datetime "meeting_date"
-    t.text "follow_up_actions"
+    t.string "location"
+    t.text "description"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -274,7 +280,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_25_142452) do
 
   create_table "skills", force: :cascade do |t|
     t.string "name"
-    t.text "description"
     t.string "proficiency"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -336,6 +341,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_25_142452) do
   create_table "work_observations", force: :cascade do |t|
     t.text "description"
     t.datetime "observed_at"
+    t.string "location"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -345,21 +351,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_25_142452) do
   add_foreign_key "acknowledgments", "users"
   add_foreign_key "ai_analyses", "users"
   add_foreign_key "capas", "incidents"
+  add_foreign_key "capas", "users", column: "responsible_person_id"
   add_foreign_key "complete_audits", "users"
   add_foreign_key "corrective_actions", "incidents"
   add_foreign_key "custom_lists", "users"
   add_foreign_key "dashboards", "users"
+  add_foreign_key "documents", "users"
   add_foreign_key "enrollments", "courses"
   add_foreign_key "enrollments", "users"
   add_foreign_key "forms", "users"
-  add_foreign_key "helps", "users"
+  add_foreign_key "help_resources", "users"
   add_foreign_key "incident_reports", "users"
   add_foreign_key "incidents", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "personal_lists", "users"
   add_foreign_key "qr_scans", "users"
+  add_foreign_key "reports", "users"
   add_foreign_key "role_assignments", "roles"
   add_foreign_key "role_assignments", "users"
+  add_foreign_key "safety_data_sheets", "users"
   add_foreign_key "safety_meetings", "users"
   add_foreign_key "skills", "users"
   add_foreign_key "system_documents", "users"

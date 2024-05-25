@@ -1,5 +1,5 @@
 class QrScan < ApplicationRecord
   belongs_to :user
 
-  validates :scanned_data, :user_id, presence: true
+  validates :data, :scanned_at, presence: true
 end

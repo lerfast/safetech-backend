@@ -1,4 +1,5 @@
 class Document < ApplicationRecord
-    validates :title, :content, :document_type, :created_by, presence: true
-  end
-  
+  belongs_to :user
+
+  validates :title, :content, :document_type, :user_id, presence: true
+end

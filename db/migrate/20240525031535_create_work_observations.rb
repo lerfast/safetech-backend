@@ -3,6 +3,7 @@ class CreateWorkObservations < ActiveRecord::Migration[7.1]
     create_table :work_observations do |t|
       t.text :description
       t.datetime :observed_at
+      t.string :location
       t.references :user, null: false, foreign_key: true
 
       t.timestamps

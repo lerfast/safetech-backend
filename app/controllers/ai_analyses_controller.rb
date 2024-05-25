@@ -1,8 +1,8 @@
-class AIAnalysesController < ApplicationController
+class AiAnalysesController < ApplicationController
     before_action :set_ai_analysis, only: %i[show update destroy]
   
     def index
-      @ai_analyses = AIAnalysis.all
+      @ai_analyses = AiAnalysis.all
       render json: @ai_analyses
     end
   
@@ -11,7 +11,7 @@ class AIAnalysesController < ApplicationController
     end
   
     def create
-      @ai_analysis = AIAnalysis.new(ai_analysis_params)
+      @ai_analysis = AiAnalysis.new(ai_analysis_params)
       if @ai_analysis.save
         # Llamar al script de Python para procesar el análisis de datos
         process_ai_analysis(@ai_analysis)
@@ -37,7 +37,7 @@ class AIAnalysesController < ApplicationController
     private
   
     def set_ai_analysis
-      @ai_analysis = AIAnalysis.find(params[:id])
+      @ai_analysis = AiAnalysis.find(params[:id])
     end
   
     def ai_analysis_params

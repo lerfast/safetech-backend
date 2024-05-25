@@ -4,7 +4,7 @@ class CreateReports < ActiveRecord::Migration[7.1]
       t.string :title
       t.text :content
       t.string :report_type
-      t.integer :generated_by
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

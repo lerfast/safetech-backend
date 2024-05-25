@@ -1,5 +1,5 @@
 class SafetyMeeting < ApplicationRecord
   belongs_to :user
 
-  validates :title, :agenda, :meeting_date, :follow_up_actions, :user_id, presence: true
+  validates :title, :meeting_date, :location, :description, :user_id, presence: true
 end
