@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  action_description: MyText
+  responsible_person: MyString
+  start_date: 2024-05-24
+  end_date: 2024-05-24
+  priority: MyString
+  status: MyString
+  incident: one
+
+two:
+  action_description: MyText
+  responsible_person: MyString
+  start_date: 2024-05-24
+  end_date: 2024-05-24
+  priority: MyString
+  status: MyString
+  incident: two

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  consequences: MyText
+  event_details: MyText
+  personal_injuries: MyText
+  asset_damage: MyText
+  event_severity: MyString
+  user: one
+
+two:
+  consequences: MyText
+  event_details: MyText
+  personal_injuries: MyText
+  asset_damage: MyText
+  event_severity: MyString
+  user: two

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyText
+  incident_date: 2024-05-24
+  reported_date: 2024-05-24
+  location: MyString
+  user: one
+  severity: MyString
+  status: MyString
+
+two:
+  description: MyText
+  incident_date: 2024-05-24
+  reported_date: 2024-05-24
+  location: MyString
+  user: two
+  severity: MyString
+  status: MyString

@@ -9,14 +9,14 @@ default: &default
 
 development:
   <<: *default
-  database: safetech_development
+  database: safetech2_development
 
 test:
   <<: *default
-  database: safetech_test
+  database: safetech2_test
 
 production:
   <<: *default
-  database: safetech_production
+  database: safetech2_production
   username: safetech
   password: <%= ENV['SAFETECH_DATABASE_PASSWORD'] %>

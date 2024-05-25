@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  scope: MyText
+  specific_questions: MyText
+  audit_details: MyText
+  corrective_actions: MyText
+  audit_type: MyString
+  user: one
+
+two:
+  scope: MyText
+  specific_questions: MyText
+  audit_details: MyText
+  corrective_actions: MyText
+  audit_type: MyString
+  user: two
